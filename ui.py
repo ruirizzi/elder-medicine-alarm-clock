@@ -39,7 +39,7 @@ class Ui_MainWindow(object):
         font.setPointSize(16)
         self.btnSnooze.setFont(font)
         self.btnSnooze.setObjectName("btnSnooze")
-        self.btnSnooze.clicked.connect(self.btnSilenciarPressed)
+        self.btnSnooze.clicked.connect(self.btnSnoozePressed)
         self.btnTaken = QtWidgets.QPushButton(self.tabMain)
         self.btnTaken.setGeometry(QtCore.QRect(150, 130, 161, 71))
         self.btnTaken.clicked.connect(self.btnTakenPressed)
@@ -119,8 +119,8 @@ class Ui_MainWindow(object):
 "Selected"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tabConfig), _translate("MainWindow", "Config"))
 
-    def btnSilenciarPressed(self):
-        events.printMessage("btnSilenciarPressed")
+    def btnSnoozePressed(self):
+        events.printMessage("btnSnoozePressed")
 
     def btnTakenPressed(self):
         events.printMessage("btnTakenPressed")
