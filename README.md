@@ -24,8 +24,8 @@ It's a bit tricky to run Python apps that use PyQt5 to create GUI, but after som
 
 ```bash
 sudo apt-get install qt5-default
-curl https://www.riverbankcomputing.com/static/Downloads/sip/4.19.17/sip-4.19.17.zip 
-curl https://www.riverbankcomputing.com/static/Downloads/PyQt5/5.12.2/PyQt5_gpl-5.12.2.zip
+curl -o https://www.riverbankcomputing.com/static/Downloads/sip/4.19.17/sip-4.19.17.zip 
+curl -o https://www.riverbankcomputing.com/static/Downloads/PyQt5/5.12.2/PyQt5_gpl-5.12.2.zip
 tar sip-4.19.17.zip -xzfv (on your download directory)
 tar PyQt5_gpl-5.12.2.zip -xzfv (on your download directory)
 ```
