@@ -26,8 +26,8 @@ It's a bit tricky to run Python apps that use PyQt5 to create GUI, but after som
 sudo apt-get install qt5-default
 wget https://www.riverbankcomputing.com/static/Downloads/sip/4.19.17/sip-4.19.17.zip 
 wget https://www.riverbankcomputing.com/static/Downloads/PyQt5/5.12.2/PyQt5_gpl-5.12.2.zip
-tar sip-4.19.17.zip -xzfv (on your download directory)
-tar PyQt5_gpl-5.12.2.zip -xzfv (on your download directory)
+tar -xzfv sip-4.19.17.zip (on your download directory)
+tar -xzfv PyQt5_gpl-5.12.2.zip (on your download directory)
 ```
 CD to `sip-4.19.17`folder:
 ```bash
