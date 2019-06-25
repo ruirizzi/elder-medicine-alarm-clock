@@ -1,6 +1,8 @@
 from enum import Enum
 import time
 import datetime
+import threading
+
 class Schedule():
     def __init__(self, dayOfWeek, hour, minute):
         self.dayOfWeek = dayOfWeek
@@ -18,16 +20,29 @@ class WeekDays(Enum):
     SUNDAY = 6
 
 schedList = []
-sched = Schedule(WeekDays.FRIDAY.value, 10, 39)
+sched = Schedule(WeekDays.FRIDAY, 11, 14)
 schedList.append(sched)
-sched = Schedule(WeekDays.FRIDAY.value, 10, 38)
+sched = Schedule(WeekDays.FRIDAY, 11, 13)
 schedList.append(sched)
-sched = Schedule(WeekDays.FRIDAY.value, 10, 40)
+sched = Schedule(WeekDays.FRIDAY, 11, 12)
 schedList.append(sched)
 
 while True:
-    time.sleep(5)
     now = datetime.datetime.today()
     for s in schedList:
-        if s.dayOfWeek == now.weekday() and s.hour == now.hour and s.minute ==  now.minute:
-            pass
+        if s.dayOfWeek.value == now.weekday() and s.hour == now.hour and s.minute ==  now.minute:
+            minute, hour = "00"
+            
+            if (s.minute < 10):
+                minute = "0"
+            else:
+                minute = ""
+
+            if(s.hour < 10):
+                hour = "0"
+            else:
+                hour = ""
+
+
+            print("Schedule Hit: {}, {}{}:{}{}".format(s.dayOfWeek.name, hour, s.hour, minute, s.minute))
+    time.sleep(60)
