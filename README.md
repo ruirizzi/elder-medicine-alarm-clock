@@ -75,4 +75,4 @@ Articles and posts that helped me throughout my adventure:
 
 ## Licensing
 
-![License](https://img.shields.io/github/license/ruirizzi/elder-medicine-alarm-clock.svg?style=flat-square)
+[![License](https://img.shields.io/github/license/ruirizzi/elder-medicine-alarm-clock.svg?style=flat-square)](https://github.com/ruirizzi/elder-medicine-alarm-clock/blob/master/LICENSE)
