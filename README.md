@@ -75,6 +75,4 @@ Articles and posts that helped me throughout my adventure:
 
 ## Licensing
 
-"The code in this project is licensed under MIT license."
-
-MIT © Rui Rizzi
+![License](https://img.shields.io/github/license/ruirizzi/elder-medicine-alarm-clock.svg?style=flat-square)
