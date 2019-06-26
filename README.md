@@ -24,10 +24,10 @@ It's a bit tricky to run Python apps that use PyQt5 to create GUI, but after som
 
 ```bash
 sudo apt-get install qt5-default
-curl https://www.riverbankcomputing.com/static/Downloads/sip/4.19.17/sip-4.19.17.zip 
-curl https://www.riverbankcomputing.com/static/Downloads/PyQt5/5.12.2/PyQt5_gpl-5.12.2.zip
-tar sip-4.19.17.zip -xzfv (on your download directory)
-tar PyQt5_gpl-5.12.2.zip -xzfv (on your download directory)
+wget https://www.riverbankcomputing.com/static/Downloads/sip/4.19.17/sip-4.19.17.zip 
+wget https://www.riverbankcomputing.com/static/Downloads/PyQt5/5.12.2/PyQt5_gpl-5.12.2.zip
+tar -xzfv sip-4.19.17.zip (on your download directory)
+tar -xzfv PyQt5_gpl-5.12.2.zip (on your download directory)
 ```
 CD to `sip-4.19.17`folder:
 ```bash
@@ -71,10 +71,12 @@ Articles and posts that helped me throughout my adventure:
  - [Python GUI's with PyQt5](https://www.youtube.com/watch?v=ksW59gYEl6Q);
  - [This PyQt5 GUI Playlist](https://www.youtube.com/watch?v=yD0iu3n-e_s&list=PL1FgJUcJJ03uO70zDLDF3oaTu6s2QLOPa);
  - [Installing Raspbian](https://www.raspberrypi.org/downloads/raspbian/);
-
+ - [This article on Periodic Tasks](https://medium.com/greedygame-engineering/an-elegant-way-to-run-periodic-tasks-in-python-61b7c477b679);
 
 ## Licensing
 
-"The code in this project is licensed under MIT license."
+[![License](https://img.shields.io/github/license/ruirizzi/elder-medicine-alarm-clock.svg?color=blue&style=flat-square)](https://github.com/ruirizzi/elder-medicine-alarm-clock/blob/master/LICENSE)
 
-MIT © Rui Rizzi
+
+
+

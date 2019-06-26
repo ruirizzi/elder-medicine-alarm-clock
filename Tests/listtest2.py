@@ -1,8 +1,30 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
+import threading, time, signal, datetime
+from datetime import timedelta
+
+WAIT_TIME_SECONDS = 5
+scheduleList = list()
+
+class ProgramKilled(Exception):
+    pass
+
+
+def check_for_pending_schedule():
+    now = datetime.datetime.today()
+    for s in scheduleList:
+        if (s.dayOfWeek == now.weekday() or s.dayOfWeek == 7 ) and s.hour == now.hour and s.minute ==  now.minute:
+            #TODO execute sound in another thread for X minutes
+            print("New schedule found")
+            if s.repeat is False:
+                indice = scheduleList.index(s)
+                scheduleList.remove(s)
+                print(indice)
+                ui.removeItemFromListByIndex(indice) #apparently this works very well
+    
+def signal_handler(signum, frame):
+    raise ProgramKilled
 
 class Ui_MainWindow(object):
-    inteiro = 0
-    array = []
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(522, 435)
@@ -50,10 +72,17 @@ class Ui_MainWindow(object):
         indice = self.tableWidget.rowCount()
         horario = self.timeEdit.time()
         self.tableWidget.insertRow(indice)
-        self.tableWidget.setItem(indice,0, QtWidgets.QTableWidgetItem(str(horario.hour()) + ":" + str(horario.minute())))
-        self.tableWidget.setItem(indice,1, QtWidgets.QTableWidgetItem("Nome do remédio {}".format(indice)))
 
-        self.listWidget.addItem(str(horario.hour()) + ":" + str(horario.minute()))
+        agenda = classe.Schedule(7, horario.hour(), horario.minute(), "Descrição",  False)
+
+        self.tableWidget.setItem(indice,0, QtWidgets.QTableWidgetItem(str(agenda.hour) + ":" + str(agenda.minute)))
+        self.tableWidget.setItem(indice,1, QtWidgets.QTableWidgetItem(agenda.description))
+
+        scheduleList.append(agenda)
+
+    def removeItemFromListByIndex(self, index):
+        #TODO test with random-inserted schedules 
+        self.tableWidget.removeRow(index) 
 
     def removeItemToList(self):
         itens = self.listWidget.selectedItems()
@@ -65,9 +94,30 @@ class Ui_MainWindow(object):
             indice = self.tableWidget.row(item)
             self.tableWidget.removeRow(indice)
     
+class Job(threading.Thread):
+    def __init__(self, interval, execute, *args, **kwargs):
+        threading.Thread.__init__(self)
+        self.daemon = False
+        self.stopped = threading.Event()
+        self.interval = interval
+        self.execute = execute
+        self.args = args
+        self.kwargs = kwargs
+        
+    def stop(self):
+                self.stopped.set()
+                self.join()
+    def run(self):
+            while not self.stopped.wait(self.interval.total_seconds()):
+                self.execute(*self.args, **self.kwargs)
 
 if __name__ == "__main__":
     import sys
+    import classe
+    signal.signal(signal.SIGTERM, signal_handler)
+    signal.signal(signal.SIGINT, signal_handler)
+    job = Job(interval=timedelta(seconds=WAIT_TIME_SECONDS), execute=check_for_pending_schedule)
+    job.start()
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
     ui = Ui_MainWindow()
@@ -75,3 +125,11 @@ if __name__ == "__main__":
     MainWindow.show()
     sys.exit(app.exec_())
 
+
+while True:
+    try:
+        time.sleep(1)
+    except ProgramKilled:
+        print ("Program killed: running cleanup code")
+        job.stop()
+        break
