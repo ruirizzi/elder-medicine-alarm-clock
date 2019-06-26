@@ -77,6 +77,3 @@ Articles and posts that helped me throughout my adventure:
 
 [![License](https://img.shields.io/github/license/ruirizzi/elder-medicine-alarm-clock.svg?color=blue&style=flat-square)](https://github.com/ruirizzi/elder-medicine-alarm-clock/blob/master/LICENSE)
 
-
-
-
