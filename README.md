@@ -71,8 +71,9 @@ Articles and posts that helped me throughout my adventure:
  - [Python GUI's with PyQt5](https://www.youtube.com/watch?v=ksW59gYEl6Q);
  - [This PyQt5 GUI Playlist](https://www.youtube.com/watch?v=yD0iu3n-e_s&list=PL1FgJUcJJ03uO70zDLDF3oaTu6s2QLOPa);
  - [Installing Raspbian](https://www.raspberrypi.org/downloads/raspbian/);
-
+ - [This article on Periodic Tasks](https://medium.com/greedygame-engineering/an-elegant-way-to-run-periodic-tasks-in-python-61b7c477b679);
 
 ## Licensing
 
 [![License](https://img.shields.io/github/license/ruirizzi/elder-medicine-alarm-clock.svg?color=blue&style=flat-square)](https://github.com/ruirizzi/elder-medicine-alarm-clock/blob/master/LICENSE)
+
