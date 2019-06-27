@@ -1,10 +1,10 @@
 from enum import Enum
 
 class Schedule():
-    def __init__(self, dayOfWeek, hour, minute, description, repeat = True):
+    def __init__(self, _time, description, repeat = True, dayOfWeek = 7):
         self.dayOfWeek = dayOfWeek
-        self.hour = hour
-        self.minute = minute
+        self.hour = _time.hour()
+        self.minute = _time.minute()
         self.description = description
         self.repeat = repeat
 

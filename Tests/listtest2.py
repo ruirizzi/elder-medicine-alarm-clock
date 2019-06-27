@@ -19,7 +19,7 @@ def check_for_pending_schedule():
                 indice = scheduleList.index(s)
                 scheduleList.remove(s)
                 print(indice)
-                ui.removeItemFromListByIndex(indice) #apparently this works very well
+                ui.removeItemFromTableByIndex(indice) #apparently this works very well
     
 def signal_handler(signum, frame):
     raise ProgramKilled
@@ -33,11 +33,11 @@ class Ui_MainWindow(object):
         self.pushButton = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton.setGeometry(QtCore.QRect(360, 60, 75, 40))
         self.pushButton.setObjectName("pushButton")
-        self.pushButton.clicked.connect(self.addItemToList)
+        self.pushButton.clicked.connect(self.pushButtonClicked)
         self.pushButton2 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton2.setGeometry(QtCore.QRect(360, 120, 75, 40))
         self.pushButton2.setObjectName("pushButton2")
-        self.pushButton2.clicked.connect(self.removeItemToList)
+        self.pushButton2.clicked.connect(self.pushButton2Clicked)
         self.listWidget = QtWidgets.QListWidget(self.centralwidget)
         self.listWidget.setGeometry(QtCore.QRect(10, 10, 256, 192))
         self.listWidget.setObjectName("listWidget")
@@ -67,32 +67,41 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.pushButton.setText(_translate("MainWindow", "Adicionar\nHorario"))
         self.pushButton2.setText(_translate("MainWindow", "Remover\nHorario"))
+    
+    def pushButtonClicked(self):
+        #TODO Implement DOW selection
+        #TODO Implement Description input
+        now = self.timeEdit.time()
+        schedule = classe.Schedule(now, "Descrição",  False, 7)
+        scheduleList.append(schedule)
+        self.addItemToTable(str(schedule.hour) + ':' + str(schedule.minute), schedule.description)
 
-    def addItemToList(self):
-        indice = self.tableWidget.rowCount()
-        horario = self.timeEdit.time()
-        self.tableWidget.insertRow(indice)
-
-        agenda = classe.Schedule(7, horario.hour(), horario.minute(), "Descrição",  False)
-
-        self.tableWidget.setItem(indice,0, QtWidgets.QTableWidgetItem(str(agenda.hour) + ":" + str(agenda.minute)))
-        self.tableWidget.setItem(indice,1, QtWidgets.QTableWidgetItem(agenda.description))
-
-        scheduleList.append(agenda)
+    def pushButton2Clicked(self):
+        itens = self.tableWidget.selectedItems()
+        for item in itens:
+            index = self.tableWidget.row(item)
+            self.removeItemFromTableByIndex(index)
+            self.removeItemFromListByIndex(index)
 
     def removeItemFromListByIndex(self, index):
+        scheduleList.remove(scheduleList[index])
+
+    def removeItemFromTableByIndex(self, index):
         #TODO test with random-inserted schedules 
         self.tableWidget.removeRow(index) 
 
-    def removeItemToList(self):
-        itens = self.listWidget.selectedItems()
-        for item in itens:
-            self.listWidget.takeItem(self.listWidget.row(item))
-
+    def removeItemFromTableBySelection(self):
         itens = self.tableWidget.selectedItems()
         for item in itens:
-            indice = self.tableWidget.row(item)
-            self.tableWidget.removeRow(indice)
+            index = self.tableWidget.row(item)
+            self.tableWidget.removeRow(index)
+    
+    def addItemToTable(self, cellValueFirstColumn, cellValueSecondColumn):
+        index = self.tableWidget.rowCount()
+        self.tableWidget.insertRow(index)
+        self.tableWidget.setItem(index, 0, QtWidgets.QTableWidgetItem(cellValueFirstColumn))
+        self.tableWidget.setItem(index, 1, QtWidgets.QTableWidgetItem(cellValueSecondColumn))
+
     
 class Job(threading.Thread):
     def __init__(self, interval, execute, *args, **kwargs):
